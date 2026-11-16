@@ -36,3 +36,6 @@ docs/**/day-*.md
 .DS_Store
 .idea/
 .vscode/
+
+# Agent instructions: kept locally, not in the repo
+CLAUDE.md
