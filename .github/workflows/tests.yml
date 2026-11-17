@@ -1,0 +1,45 @@
+name: Tests
+
+# Runs the full pytest suite on every push and pull request.
+# No video or GPU is needed: the tests use small synthetic frames.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      # CPU-only PyTorch keeps the install small; the tests never use a GPU.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install -e ".[dev]"
+
+      # The face-blur tests need the YuNet face model (models/ is git-ignored).
+      # Downloaded from OpenCV Zoo and checked against a known hash.
+      - name: Download face model
+        run: |
+          curl -sSfL -o models/face_detection_yunet_2023mar.onnx \
+            https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+          echo "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4  models/face_detection_yunet_2023mar.onnx" | sha256sum -c -
+
+      - name: Run tests
+        run: pytest -q -rs

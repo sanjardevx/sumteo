@@ -1,5 +1,7 @@
 # 숨터 Sumteo — AI crowd-safety early warning
 
+[![Tests](https://github.com/sanjardevx/sumteo/actions/workflows/tests.yml/badge.svg?branch=develop)](https://github.com/sanjardevx/sumteo/actions/workflows/tests.yml)
+
 Built to warn security staff **before** a crowd becomes a crush. From CCTV it measures people per m² and how the
 crowd moves, and raises 관심 → 주의 → 경계 → 심각 (Attention → Caution → Alert → Serious) alerts to guards' phones
 and a map-based control room.
