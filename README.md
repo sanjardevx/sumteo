@@ -7,6 +7,8 @@ and a map-based control room.
 **Why:** in the 2022 Itaewon crowd crush, 159 people died in a narrow alley; investigators called it a man-made
 disaster of failed prevention and response. Sumteo is modelled on the AI crowd monitoring Seoul installed afterwards.
 
+> 🇰🇷 **한국어 요약** — CCTV 영상으로 1㎡당 인원과 군중의 흐름을 측정해, 위험이 커지기 전에 관심 → 주의 → 경계 → 심각 단계로 안전요원에게 알리는 AI 군중 안전 조기 경보 시스템입니다. 2022년 이태원 참사 이후 서울시가 도입한 AI 군중 관제를 모델로 한 학습 프로젝트이며, YOLO · OpenCV · FastAPI · Next.js로 개발했습니다. 얼굴은 화면 전송 전에 모두 블러 처리합니다.
+
 > Study project, not a deployed system. Cameras sit at demo positions on the Itaewon map and play stock and research
 > footage. No footage of the 2022 event is used.
 
@@ -94,6 +96,12 @@ your Kakao key.
 - Models: [Ultralytics YOLO26](https://github.com/ultralytics/ultralytics) (AGPL-3.0),
   [DM-Count](https://github.com/cvlab-stonybrook/DM-Count), YuNet (OpenCV Zoo).
 - Map tiles © Kakao. Landing-page photo credits: [CREDITS](dashboard/public/landing/CREDITS.md).
+
+## What I'd do next
+
+- **Fix the low counts on dense real CCTV** by fine-tuning the density model on high camera angles, since reading low is the unsafe direction.
+- **Support night footage and more camera types**, not only fixed daytime cameras.
+- **A field test with a real venue**, using its own cameras and its own validated thresholds.
 
 ## License
 
